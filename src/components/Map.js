@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { nearbyAddaData } from "../data";
+import { nearbyAddaData } from "../utils/data";
 
 const Map = ({ handleSelectedEvent }) => {
   const googleMapRef = useRef(null);

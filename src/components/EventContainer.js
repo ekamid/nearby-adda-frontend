@@ -1,16 +1,18 @@
 import React from "react";
-import SingleEvent from "./SingleEvent";
+import { useSelector } from "react-redux";
 
-import { nearbyAddaData } from "../data";
+import SingleEvent from "./SingleEvent";
 import EventSearchByLocation from "./EventSearchByLocation";
 
 const EventContainer = ({ selectedEvent }) => {
+  const { events } = useSelector((state) => state.events);
+
   return (
     <div className="event-container">
       <EventSearchByLocation />
       <div className="event-list">
-        {nearbyAddaData.map((item, index) =>
-          index === nearbyAddaData.length - 1 ? (
+        {events.map((item, index) =>
+          index === events.length - 1 ? (
             <SingleEvent
               key={index}
               data={item}
