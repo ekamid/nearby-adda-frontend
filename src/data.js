@@ -1,0 +1,86 @@
+exports.nearbyAddaData = [
+  {
+    id: 1,
+    latitude: 23.774711,
+    longitude: 90.415417,
+    address: "Banasree, Dhaka 1219, Bangladesh",
+    title: "আসো খেলি বনশ্রী পার্কে",
+    description: "Large public park with walking trails and playgrounds",
+    imageUrl:
+      "https://images.pexels.com/photos/11785073/pexels-photo-11785073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    time: "10:00",
+    date: "2023-03-05",
+  },
+  {
+    id: 2,
+    latitude: 23.763736,
+    longitude: 90.428037,
+    address: "13/1 Tajmahal Road, Mohammadpur, Dhaka 1207, Bangladesh",
+    title: "Cafee a mango te mango adda hobe naki?",
+    description: "Cozy cafe serving coffee, tea, and pastries",
+    imageUrl:
+      "https://images.pexels.com/photos/11785073/pexels-photo-11785073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    time: "11:30",
+    date: "2023-03-05",
+  },
+  {
+    id: 3,
+    latitude: 23.765719,
+    longitude: 90.418437,
+    address: "Aftabnagar, Dhaka 1212, Bangladesh",
+    title: "Dua mahfil cole",
+    description: "Beautiful mosque with intricate architecture",
+    imageUrl:
+      "https://images.pexels.com/photos/11785073/pexels-photo-11785073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    time: "13:00",
+    date: "2023-03-05",
+  },
+  {
+    id: 4,
+    latitude: 23.772233,
+    longitude: 90.415373,
+    address: "House 4, Road 4, Block C, Rampura, Dhaka 1219, Bangladesh",
+    title: "Rampura Lake e swiming?",
+    description: "Scenic lake with boating facilities",
+    imageUrl:
+      "https://images.pexels.com/photos/11785073/pexels-photo-11785073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    time: "15:30",
+    date: "2023-03-05",
+  },
+  {
+    id: 5,
+    latitude: 23.767388,
+    longitude: 90.410784,
+    address: "House 16, Road 2, Block B, Malibag, Dhaka 1219, Bangladesh",
+    title: "Malibag Railway Station Photo walk",
+    description: "Historic railway station with colonial architecture",
+    imageUrl:
+      "https://images.pexels.com/photos/11785073/pexels-photo-11785073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    time: "18:00",
+    date: "2023-03-05",
+  },
+  {
+    id: 6,
+    latitude: 23.769487,
+    longitude: 90.405407,
+    address: "12 Hatirjheel Link Road, Dhaka 1212, Bangladesh",
+    title: "Hatirjheel Lake Running Half Marathon",
+    description: "Large lake with walking paths and scenic views",
+    imageUrl:
+      "https://images.pexels.com/photos/11785073/pexels-photo-11785073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    time: "10:00",
+    date: "2023-03-06",
+  },
+  {
+    id: 7,
+    latitude: 23.773843,
+    longitude: 90.401064,
+    address: "Gulshan Avenue, Dhaka 1212, Bangladesh",
+    title: "Gulshan Circle 1 doggo der khawano",
+    description: "Busy intersection with shops and restaurants",
+    imageUrl:
+      "https://images.pexels.com/photos/11785073/pexels-photo-11785073.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    time: "11:30",
+    date: "",
+  },
+];
