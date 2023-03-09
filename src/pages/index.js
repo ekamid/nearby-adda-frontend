@@ -20,6 +20,7 @@ export default function Home() {
   const [loadMap, setLoadMap] = useState(false);
 
   useEffect(() => {
+    //load google map
     loadGoogleMapScript(() => {
       setLoadMap(true);
     }, GOOGLE_MAP_API_KEY);

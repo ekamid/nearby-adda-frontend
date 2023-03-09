@@ -12,25 +12,35 @@ const EventSearchByLocation = ({ loadMap }) => {
     address: "",
   });
 
-  const [autocomplete, setAutocomplete] = useState(null);
-  const [query, setQuery] = useState("");
-
-  const handleScriptLoad = () => {
+  const handlePlaceSearchAndSelect = () => {
     const autocomplete = new window.google.maps.places.Autocomplete(
       document.getElementById("search-box")
     );
-    setAutocomplete(autocomplete);
 
-    autocomplete.addListener("place_changed", handlePlaceSelect);
-  };
+    window.google.maps.event.addListener(
+      autocomplete,
+      "place_changed",
+      function () {
+        var place = autocomplete.getPlace();
+        setAddress(place.formatted_address);
+        setLocation({
+          address: place.formatted_address,
+          latitude: place.geometry.location.lat(),
+          longitude: place.geometry.location.lng(),
+        });
 
-  const handlePlaceSelect = () => {
-    const place = autocomplete.getPlace();
-    // Do something with the selected place
-  };
+        const data = localStorage.getItem("currentLocation");
 
-  const handleInputChange = (event) => {
-    setQuery(event.target.value);
+        if (data) {
+          const parsed = JSON.parse(data);
+          parsed.address = place.formatted_address;
+          parsed.latitude = place.geometry.location.lat();
+          parsed.longitude = place.geometry.location.lng();
+
+          localStorage.setItem("currentLocation", JSON.stringify(parsed));
+        }
+      }
+    );
   };
 
   const { refetch, isLoading } = useGetEventsQuery({
@@ -55,6 +65,10 @@ const EventSearchByLocation = ({ loadMap }) => {
       refetch();
     }
   }, []);
+
+  useEffect(() => {
+    refetch();
+  }, [location, radius]);
 
   const getLocation = async () => {
     if (!navigator.geolocation) {
@@ -95,43 +109,9 @@ const EventSearchByLocation = ({ loadMap }) => {
     }
   };
 
-  // const placeWidget = usePlacesWidget({
-  //   apiKey: GOOGLE_MAP_API_KEY,
-  //   options: {
-  //     types: ["establishment"],
-  //     componentRestrictions: { country: "bd" },
-  //   },
-  //   onPlaceSelected: (place) => {
-  //     const { formatted_address, geometry } = place;
-  //     const { location } = geometry;
-  //     const { lat, lng } = location;
-
-  //     setAddress(address);
-  //     setLocation({
-  //       address: formatted_address,
-  //       latitude: lat(),
-  //       longitude: lng(),
-  //     });
-
-  //     const data = localStorage.getItem("currentLocation");
-
-  //     if (data) {
-  //       const parsed = JSON.parse(data);
-
-  //       console.log(parsed);
-
-  //       parsed.address = formatted_address;
-  //       parsed.latitude = lat();
-  //       parsed.longitude = lng();
-
-  //       localStorage.setItem("currentLocation", JSON.stringify(parsed));
-  //     }
-  //   },
-  // });
-
   const handleAddress = (e) => {
     setAddress(e.target.value);
-    handleScriptLoad();
+    handlePlaceSearchAndSelect();
   };
 
   const handleRadius = (e) => {
@@ -153,7 +133,6 @@ const EventSearchByLocation = ({ loadMap }) => {
         name="address"
         onChange={handleAddress}
         id="search-box"
-        // ref={placeWidget.ref}
         value={address}
         placeholder="Search your address"
       />

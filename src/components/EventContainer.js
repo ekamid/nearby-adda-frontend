@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import SingleEvent from "./SingleEvent";
 import EventSearchByLocation from "./EventSearchByLocation";
 
-const EventContainer = ({ selectedEvent, loadMap = { loadMap } }) => {
+const EventContainer = ({ selectedEvent, loadMap }) => {
   const { events } = useSelector((state) => state.events);
 
   return (
