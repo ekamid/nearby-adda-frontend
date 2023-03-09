@@ -8,8 +8,8 @@ const Map = ({ handleSelectedEvent, events }) => {
   useEffect(() => {
     googleMap = initGoogleMap(
       {
-        lat: nearbyAddaData[0].latitude,
-        lng: nearbyAddaData[0].longitude,
+        lat: events[0].latitude,
+        lng: events[0].longitude,
       },
       17
     );
@@ -55,14 +55,15 @@ const Map = ({ handleSelectedEvent, events }) => {
 
   // create marker on google map
   const createMarker = (markerObj) => {
+    console.log(markerObj);
     const infoWindow = new window.google.maps.InfoWindow();
     const marker = new window.google.maps.Marker({
       position: { lat: markerObj.latitude, lng: markerObj.longitude },
       map: googleMap,
-      title: markerObj.title,
-      id: `event-${markerObj.id}`,
+      title: markerObj.name,
+      id: `event-${markerObj._id}`,
       icon: {
-        url: "https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png",
+        url: markerObj.markerIconUrl,
         // set marker width and height
         scaledSize: new window.google.maps.Size(50, 50),
       },

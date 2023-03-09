@@ -2,15 +2,12 @@ import React from "react";
 import { BiMap } from "react-icons/bi";
 
 const SingleEvent = ({ data, className }) => {
-  const { title, address, description, id } = data;
+  const { name, address, imageUrl, description, _id } = data;
 
   return (
-    <div
-      className={`single-event-container ${className}`}
-      id={`event-${data.id}`}
-    >
-      <img src={`${data.imageUrl}`} alt={data.title} />
-      <h1>{title}</h1>
+    <div className={`single-event-container ${className}`} id={`event-${_id}`}>
+      <img src={`${imageUrl}`} alt={data.name} />
+      <h1>{name}</h1>
       <h3>
         <BiMap /> {address}
       </h3>
