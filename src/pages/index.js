@@ -3,11 +3,14 @@ import { Inter } from "@next/font/google";
 import EventContainer from "@/components/EventContainer";
 import MapContainer from "@/components/MapContainer";
 import { useState } from "react";
+import { useGetEventsQuery } from "@/app/api/eventApi";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const { refetch: refetchBook, isLoading: isLoading } = useGetEventsQuery();
 
   const handleSelectedEvent = (id) => {
     setSelectedEvent(id);

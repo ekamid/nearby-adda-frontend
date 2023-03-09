@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { nearbyAddaData } from "../utils/data";
 
-const Map = ({ handleSelectedEvent }) => {
+const Map = ({ handleSelectedEvent, events }) => {
   const googleMapRef = useRef(null);
   let googleMap = null;
 
@@ -14,7 +14,7 @@ const Map = ({ handleSelectedEvent }) => {
       17
     );
     var bounds = new window.google.maps.LatLngBounds();
-    nearbyAddaData.map((x) => {
+    events.map((x) => {
       const marker = createMarker(x);
       bounds.extend(marker.position);
     });

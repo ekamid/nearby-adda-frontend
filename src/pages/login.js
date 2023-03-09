@@ -1,8 +1,11 @@
-import React from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Container, Form, Button, Toast } from "react-bootstrap";
 
 import * as Yup from "yup";
 import { Formik } from "formik";
+import { useRouter } from "next/router";
+import { useLoginUserMutation } from "@/app/api/authApi";
+import { errorToast } from "@/utils/toastify";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().email().required(),
@@ -10,11 +13,34 @@ const loginSchema = Yup.object().shape({
 });
 
 const LoginPage = () => {
+  const router = useRouter();
+  const [loginUser, { isLoading, isError, error, isSuccess }] =
+    useLoginUserMutation();
+
+  useEffect(() => {
+    // redirect to home if already logged in
+    if (false) {
+      router.push("/");
+    }
+  }, []);
+
+
+  const handleSubmit = async (values) => {
+    try {
+      if (values.remember_me) {
+        localStorage.setItem("remember_me", values.remember_me);
+      }
+      await loginUser(values).unwrap();
+    } catch (err) {
+      errorToast(err.data.message);
+    }
+  };
+
   return (
     <Container className="p-3 my-5 d-flex flex-column w-50">
       <Formik
         validationSchema={loginSchema}
-        onSubmit={console.log}
+        onSubmit={handleSubmit}
         initialValues={{
           email: "",
           password: "",

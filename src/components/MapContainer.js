@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import GMap from "./Map";
 import Preloader from "./Preloader";
 
@@ -23,6 +24,8 @@ const loadGoogleMapScript = (callback) => {
 const MapContainer = ({ handleSelectedEvent }) => {
   const [loadMap, setLoadMap] = useState(false);
 
+  const { events } = useSelector((state) => state.events);
+
   useEffect(() => {
     loadGoogleMapScript(() => {
       setLoadMap(true);
@@ -34,7 +37,7 @@ const MapContainer = ({ handleSelectedEvent }) => {
       {!loadMap ? (
         <Preloader />
       ) : (
-        <GMap handleSelectedEvent={handleSelectedEvent} />
+        <GMap handleSelectedEvent={handleSelectedEvent} events={events} />
       )}
     </div>
   );
