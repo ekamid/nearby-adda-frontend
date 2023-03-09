@@ -57,7 +57,6 @@ const Map = ({ handleSelectedEvent, events }) => {
 
   // create marker on google map
   const createMarker = (markerObj) => {
-    console.log(markerObj);
     const infoWindow = new window.google.maps.InfoWindow();
     const marker = new window.google.maps.Marker({
       position: { lat: markerObj.latitude, lng: markerObj.longitude },
@@ -65,7 +64,7 @@ const Map = ({ handleSelectedEvent, events }) => {
       title: markerObj.name,
       id: `event-${markerObj._id}`,
       icon: {
-        url: markerObj.markerIconUrl,
+        url: `https://cdn2.iconfinder.com/data/icons/IconsLandVistaMapMarkersIconsDemo/256/MapMarker_Marker_Outside_Chartreuse.png`,
         // set marker width and height
         scaledSize: new window.google.maps.Size(50, 50),
       },
