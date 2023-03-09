@@ -3,7 +3,7 @@ import { errorToast } from "@/utils/toastify";
 import React, { useEffect, useState } from "react";
 import { BiMap } from "react-icons/bi";
 
-const EventSearchByLocation = () => {
+const EventSearchByLocation = ({ loadMap }) => {
   const [address, setAddress] = useState("");
   const [radius, setRadius] = useState(5);
   const [location, setLocation] = useState({
@@ -12,7 +12,32 @@ const EventSearchByLocation = () => {
     address: "",
   });
 
-  // const { refetch: refetchBook, isLoading: isLoading } = useGetEventsQuery();
+  const [autocomplete, setAutocomplete] = useState(null);
+  const [query, setQuery] = useState("");
+
+  const handleScriptLoad = () => {
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      document.getElementById("search-box")
+    );
+    setAutocomplete(autocomplete);
+
+    autocomplete.addListener("place_changed", handlePlaceSelect);
+  };
+
+  const handlePlaceSelect = () => {
+    const place = autocomplete.getPlace();
+    // Do something with the selected place
+  };
+
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const { refetch, isLoading } = useGetEventsQuery({
+    radius: radius,
+    latitude: location.latitude,
+    longitude: location.longitude,
+  });
 
   useEffect(() => {
     const data = localStorage.getItem("currentLocation");
@@ -26,6 +51,8 @@ const EventSearchByLocation = () => {
         latitude: parsed.latitude,
         longitude: parsed.longitude,
       });
+
+      refetch();
     }
   }, []);
 
@@ -68,8 +95,43 @@ const EventSearchByLocation = () => {
     }
   };
 
+  // const placeWidget = usePlacesWidget({
+  //   apiKey: GOOGLE_MAP_API_KEY,
+  //   options: {
+  //     types: ["establishment"],
+  //     componentRestrictions: { country: "bd" },
+  //   },
+  //   onPlaceSelected: (place) => {
+  //     const { formatted_address, geometry } = place;
+  //     const { location } = geometry;
+  //     const { lat, lng } = location;
+
+  //     setAddress(address);
+  //     setLocation({
+  //       address: formatted_address,
+  //       latitude: lat(),
+  //       longitude: lng(),
+  //     });
+
+  //     const data = localStorage.getItem("currentLocation");
+
+  //     if (data) {
+  //       const parsed = JSON.parse(data);
+
+  //       console.log(parsed);
+
+  //       parsed.address = formatted_address;
+  //       parsed.latitude = lat();
+  //       parsed.longitude = lng();
+
+  //       localStorage.setItem("currentLocation", JSON.stringify(parsed));
+  //     }
+  //   },
+  // });
+
   const handleAddress = (e) => {
     setAddress(e.target.value);
+    handleScriptLoad();
   };
 
   const handleRadius = (e) => {
@@ -89,8 +151,9 @@ const EventSearchByLocation = () => {
       <input
         type="text"
         name="address"
-        id="address"
         onChange={handleAddress}
+        id="search-box"
+        // ref={placeWidget.ref}
         value={address}
         placeholder="Search your address"
       />

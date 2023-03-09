@@ -22,7 +22,7 @@ export const eventApi = createApi({
   endpoints: (builder) => ({
     getEvents: builder.query({
       query(arg) {
-        const queryParams = getPathQueryParams({ arg });
+        const queryParams = getPathQueryParams(arg);
         return {
           url: `?${queryParams}`,
         };
@@ -30,7 +30,6 @@ export const eventApi = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data: response } = await queryFulfilled;
-          console.log(response.data.rows);
           dispatch(
             setEvents({
               events: response?.data?.rows,

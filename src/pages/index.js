@@ -1,20 +1,30 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
 import EventContainer from "@/components/EventContainer";
 import MapContainer from "@/components/MapContainer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetEventsQuery } from "@/app/api/eventApi";
-
-const inter = Inter({ subsets: ["latin"] });
+import { loadGoogleMapScript } from "@/utils/helpers";
 
 export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   const { refetch: refetchBook, isLoading: isLoading } = useGetEventsQuery();
 
+  // API key of the google map
+  const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
   const handleSelectedEvent = (id) => {
     setSelectedEvent(id);
   };
+
+  const [loadMap, setLoadMap] = useState(false);
+
+  useEffect(() => {
+    loadGoogleMapScript(() => {
+      setLoadMap(true);
+    }, GOOGLE_MAP_API_KEY);
+  }, [GOOGLE_MAP_API_KEY]);
+
   return (
     <>
       <Head>
@@ -27,8 +37,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="main">
-        <EventContainer selectedEvent={selectedEvent} />
-        <MapContainer handleSelectedEvent={handleSelectedEvent} />
+        <EventContainer selectedEvent={selectedEvent} loadMap={loadMap} />
+        <MapContainer
+          handleSelectedEvent={handleSelectedEvent}
+          loadMap={loadMap}
+        />
 
         {/* <Draggable>
           <div>

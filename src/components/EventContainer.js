@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import SingleEvent from "./SingleEvent";
 import EventSearchByLocation from "./EventSearchByLocation";
 
-const EventContainer = ({ selectedEvent }) => {
+const EventContainer = ({ selectedEvent, loadMap = { loadMap } }) => {
   const { events } = useSelector((state) => state.events);
 
   return (
     <div className="event-container">
-      <EventSearchByLocation />
+      <EventSearchByLocation loadMap={loadMap} />
       {events.length ? (
         <div className="event-list">
           {events.map((item, index) =>

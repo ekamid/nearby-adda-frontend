@@ -31,8 +31,6 @@ export const errorToast = (
     theme: "light",
   }
 ) => {
-  console.log("message");
-  console.log(message);
   return toast.error(message, {
     ...options,
   });

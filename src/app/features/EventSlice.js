@@ -12,7 +12,6 @@ export const eventSlice = createSlice({
   name: "events",
   reducers: {
     setEvents: (state, action) => {
-      console.log(action);
       state.events = action.payload.events;
       state.page = action.payload.page;
     },

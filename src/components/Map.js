@@ -1,13 +1,10 @@
 import React, { useEffect, useRef } from "react";
-import { nearbyAddaData } from "../utils/data";
 
 const Map = ({ handleSelectedEvent, events }) => {
   const googleMapRef = useRef(null);
   let googleMap = null;
 
   useEffect(() => {
-    console.log("events");
-    console.log(events);
     googleMap = initGoogleMap(
       {
         lat: events.length ? events[0].latitude : 0,
