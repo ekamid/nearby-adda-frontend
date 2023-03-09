@@ -24,7 +24,6 @@ const MapContainer = ({ handleSelectedEvent }) => {
   const [loadMap, setLoadMap] = useState(false);
 
   useEffect(() => {
-    console.log(GOOGLE_MAP_API_KEY);
     loadGoogleMapScript(() => {
       setLoadMap(true);
     });

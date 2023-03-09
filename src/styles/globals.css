@@ -49,6 +49,13 @@ button {
   overflow: hidden;
 }
 
+
+/* bootstrap rewrite  */
+
+.invalid-feedback {
+  display: inline-block !important;
+}
+
 /* sidebar event container */
 
 .event-container {
