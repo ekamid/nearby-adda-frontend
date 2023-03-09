@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import SingleEvent from "./SingleEvent";
 import EventSearchByLocation from "./EventSearchByLocation";
-import { useGetEventsQuery } from "@/app/api/eventApi";
 
 const EventContainer = ({ selectedEvent }) => {
   const { events } = useSelector((state) => state.events);

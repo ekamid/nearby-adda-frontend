@@ -6,6 +6,8 @@ const Map = ({ handleSelectedEvent, events }) => {
   let googleMap = null;
 
   useEffect(() => {
+    console.log("events");
+    console.log(events);
     googleMap = initGoogleMap(
       {
         lat: events.length ? events[0].latitude : 0,
@@ -19,7 +21,7 @@ const Map = ({ handleSelectedEvent, events }) => {
       bounds.extend(marker.position);
     });
     googleMap.fitBounds(bounds); // the map to contain all markers
-  }, []);
+  }, [events]);
 
   const handleClickScroll = (id) => {
     const element = document.getElementById(id);
