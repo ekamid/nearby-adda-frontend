@@ -34,7 +34,7 @@ const EventContainer = ({ selectedEvent }) => {
           )}
         </div>
       ) : (
-        <div className="d-flex align-items-center justify-content-center w-100">
+        <div className="d-flex align-items-center justify-content-center h-100">
           <h3>Empty</h3>
         </div>
       )}
