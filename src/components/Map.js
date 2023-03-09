@@ -8,12 +8,12 @@ const Map = ({ handleSelectedEvent, events }) => {
   useEffect(() => {
     googleMap = initGoogleMap(
       {
-        lat: events[0].latitude,
-        lng: events[0].longitude,
+        lat: events.length ? events[0].latitude : 0,
+        lng: events.length ? events[0].latitude : 0,
       },
       17
     );
-    var bounds = new window.google.maps.LatLngBounds();
+    let bounds = new window.google.maps.LatLngBounds();
     events.map((x) => {
       const marker = createMarker(x);
       bounds.extend(marker.position);

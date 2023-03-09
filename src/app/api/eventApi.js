@@ -31,9 +31,9 @@ export const eventApi = createApi({
         try {
           const { data: response } = await queryFulfilled;
           console.log(response.data.rows);
-          dispatch(
+        dispatch(
             setEvents({
-              events: response?.data?.rows,
+              events: [], //response?.data?.rows,
               pages: response?.data?.pages,
             })
           );
