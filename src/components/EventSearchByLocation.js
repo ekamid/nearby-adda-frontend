@@ -6,11 +6,23 @@ import { BiMap } from "react-icons/bi";
 const EventSearchByLocation = ({ loadMap }) => {
   const [address, setAddress] = useState("");
   const [radius, setRadius] = useState(5);
+  const [shuldFetchData, setShouldFetchData] = useState(true);
   const [location, setLocation] = useState({
     latitude: "",
     longitude: "",
     address: "",
   });
+
+  const { refetch, isLoading } = useGetEventsQuery(
+    {
+      radius: radius,
+      latitude: location.latitude,
+      longitude: location.longitude,
+    },
+    {
+      skip: shuldFetchData,
+    }
+  );
 
   const handlePlaceSearchAndSelect = () => {
     const autocomplete = new window.google.maps.places.Autocomplete(
@@ -29,6 +41,8 @@ const EventSearchByLocation = ({ loadMap }) => {
           longitude: place.geometry.location.lng(),
         });
 
+        setShouldFetchData(false);
+
         const data = localStorage.getItem("currentLocation");
 
         if (data) {
@@ -43,32 +57,11 @@ const EventSearchByLocation = ({ loadMap }) => {
     );
   };
 
-  const { refetch, isLoading } = useGetEventsQuery({
-    radius: radius,
-    latitude: location.latitude,
-    longitude: location.longitude,
-  });
-
   useEffect(() => {
-    const data = localStorage.getItem("currentLocation");
-
-    if (data) {
-      const parsed = JSON.parse(data);
-      setRadius(parsed.radius);
-      setAddress(parsed.address);
-      setLocation({
-        address: parsed.address,
-        latitude: parsed.latitude,
-        longitude: parsed.longitude,
-      });
-
+    if (!setShouldFetchData) {
       refetch();
     }
-  }, []);
-
-  useEffect(() => {
-    refetch();
-  }, [location, radius]);
+  }, [location, radius, setShouldFetchData]);
 
   const getLocation = async () => {
     if (!navigator.geolocation) {
