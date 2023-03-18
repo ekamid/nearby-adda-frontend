@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 const EventSearchByLocation = ({ loadMap }) => {
   const [address, setAddress] = useState("");
   const [radius, setRadius] = useState(5);
-  const [shuldFetchData, setShouldFetchData] = useState(true);
+  const [shouldFetchData, setShouldFetchData] = useState(true);
   const [location, setLocation] = useState({
     latitude: "",
     longitude: "",
@@ -22,7 +22,7 @@ const EventSearchByLocation = ({ loadMap }) => {
       longitude: location.longitude,
     },
     {
-      skip: shuldFetchData,
+      skip: shouldFetchData,
     }
   );
 
@@ -42,8 +42,6 @@ const EventSearchByLocation = ({ loadMap }) => {
           latitude: place.geometry.location.lat(),
           longitude: place.geometry.location.lng(),
         });
-
-        console.log("location changed");
 
         setShouldFetchData(false);
 
@@ -81,7 +79,7 @@ const EventSearchByLocation = ({ loadMap }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!setShouldFetchData) {
+    if (!shouldFetchData) {
       refetch();
       dispatch(setFetching(isFetching));
     }
@@ -134,6 +132,7 @@ const EventSearchByLocation = ({ loadMap }) => {
   const handleRadius = (e) => {
     setRadius(e.target.value);
     const data = localStorage.getItem("currentLocation");
+    setShouldFetchData(false);
 
     if (data) {
       const parsed = JSON.parse(data);

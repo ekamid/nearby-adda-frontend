@@ -1,6 +1,6 @@
 import { getPathQueryParams } from "@/utils/helpers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setEvents } from "../features/EventSlice";
+import { setEvents, setFetching } from "../features/EventSlice";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -36,6 +36,8 @@ export const eventApi = createApi({
               pages: response?.data?.pages,
             })
           );
+
+          dispatch(setFetching(false));
         } catch (thrown) {
           console.error(thrown.error);
         }

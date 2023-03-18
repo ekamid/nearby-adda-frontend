@@ -43,8 +43,8 @@ button {
 }
 
 .main {
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
   max-height: 100vh;
   overflow: hidden;
 }
@@ -60,6 +60,7 @@ button {
 
 .event-container {
   min-width: 480px;
+  height: 100vh;
 }
 
 .event-list {
@@ -149,8 +150,8 @@ button.message-btn {
 /* map  */
 
 .map-container {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   position: relative;
 }
 
@@ -158,13 +159,8 @@ button.message-btn {
 /* preloader  */
 
 .preloader {
-  position: absolute;
-  width: 102px;
-  height: 102px;
-  left: 50%;
-  top: 50%;
-  min-height: 102px;
-  transform: translateX(-50%) translateY(-50%);
+  width: 100%;
+  height: 100%;
 }
 
 .preloader .small-circle {
@@ -208,7 +204,10 @@ button.message-btn {
 .preloader svg {
   width: 102px;
   height: 102px;
-
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 

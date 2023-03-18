@@ -66,12 +66,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="main">
-        <EventContainer selectedEvent={selectedEvent} loadMap={loadMap} />
-        <MapContainer
-          handleSelectedEvent={handleSelectedEvent}
-          loadMap={loadMap}
-        />
-
+        <div className="row">
+          <div className="col-4">
+            <EventContainer selectedEvent={selectedEvent} loadMap={loadMap} />
+          </div>
+          <div className="col-8">
+            <MapContainer
+              handleSelectedEvent={handleSelectedEvent}
+              loadMap={loadMap}
+            />
+          </div>
+        </div>
         {/* <Draggable>
           <div>
             <FloatingMenu />

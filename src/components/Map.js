@@ -55,6 +55,7 @@ const Map = ({ handleSelectedEvent, events }) => {
   // create marker on google map
   const createMarker = (markerObj) => {
     const infoWindow = new window.google.maps.InfoWindow();
+
     const marker = new window.google.maps.Marker({
       position: { lat: markerObj.latitude, lng: markerObj.longitude },
       map: googleMap,
