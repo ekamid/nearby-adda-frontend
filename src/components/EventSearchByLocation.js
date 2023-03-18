@@ -41,6 +41,8 @@ const EventSearchByLocation = ({ loadMap }) => {
           longitude: place.geometry.location.lng(),
         });
 
+        console.log("location changed");
+
         setShouldFetchData(false);
 
         const data = localStorage.getItem("currentLocation");
@@ -56,6 +58,23 @@ const EventSearchByLocation = ({ loadMap }) => {
       }
     );
   };
+
+  useEffect(() => {
+    const data = localStorage.getItem("currentLocation");
+
+    if (data) {
+      const parsed = JSON.parse(data);
+      setAddress(parsed.address);
+      setRadius(parsed.radius);
+      setLocation({
+        address: parsed.address,
+        latitude: parsed.latitude,
+        longitude: parsed.longitude,
+      });
+
+      setShouldFetchData(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (!setShouldFetchData) {

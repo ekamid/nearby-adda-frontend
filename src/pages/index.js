@@ -4,11 +4,12 @@ import MapContainer from "@/components/MapContainer";
 import { useEffect, useState } from "react";
 import { useGetEventsQuery } from "@/app/api/eventApi";
 import { loadGoogleMapScript } from "@/utils/helpers";
+import Preloader from "@/components/Preloader";
 
 export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const { refetch: refetchBook, isLoading: isLoading } = useGetEventsQuery();
+  const { isLoading } = useGetEventsQuery();
 
   // API key of the google map
   const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -25,6 +26,25 @@ export default function Home() {
       setLoadMap(true);
     }, GOOGLE_MAP_API_KEY);
   }, [GOOGLE_MAP_API_KEY]);
+
+  if (isLoading) {
+    return (
+      <>
+        <Head>
+          <title>Home || Loading</title>
+          <meta
+            name="description"
+            content="Find out nearby gathering within specific radius."
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <div className="main">
+          <Preloader />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
