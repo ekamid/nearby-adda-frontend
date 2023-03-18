@@ -5,6 +5,7 @@ import { nearbyAddaData } from "@/utils/data";
 const initialState = {
   events: [],
   pages: 0,
+  fetchingEvents: false,
 };
 
 export const eventSlice = createSlice({
@@ -15,9 +16,13 @@ export const eventSlice = createSlice({
       state.events = action.payload.events;
       state.page = action.payload.page;
     },
+
+    setFetching: (state, action) => {
+      state.fetchingEvents = action.payload;
+    },
   },
 });
 
 export default eventSlice.reducer;
 
-export const { setEvents } = eventSlice.actions;
+export const { setEvents, setFetching } = eventSlice.actions;

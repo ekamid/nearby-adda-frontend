@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import { useGetEventsQuery } from "@/app/api/eventApi";
 import { loadGoogleMapScript } from "@/utils/helpers";
 import Preloader from "@/components/Preloader";
+import { setFetching } from "@/app/features/EventSlice";
+import { useDispatch } from "react-redux";
 
 export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const { isLoading } = useGetEventsQuery();
+  const { isLoading, isFetching } = useGetEventsQuery();
+
+  const dispatch = useDispatch();
 
   // API key of the google map
   const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -26,6 +30,10 @@ export default function Home() {
       setLoadMap(true);
     }, GOOGLE_MAP_API_KEY);
   }, [GOOGLE_MAP_API_KEY]);
+
+  useEffect(() => {
+    dispatch(setFetching(isFetching));
+  }, [isFetching]);
 
   if (isLoading) {
     return (

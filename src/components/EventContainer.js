@@ -3,14 +3,27 @@ import { useSelector } from "react-redux";
 
 import SingleEvent from "./SingleEvent";
 import EventSearchByLocation from "./EventSearchByLocation";
+import Preloader from "./Preloader";
 
 const EventContainer = ({ selectedEvent, loadMap }) => {
-  const { events } = useSelector((state) => state.events);
+  const { events, fetchingEvents } = useSelector((state) => state.events);
 
   return (
     <div className="event-container">
       <EventSearchByLocation loadMap={loadMap} />
-      {events.length ? (
+      {fetchingEvents ? (
+        <div className="d-flex align-items-center justify-content-center h-100">
+          <Preloader
+            arg={{
+              position: "relative",
+              left: "unset",
+              right: "unset",
+              top: "unset",
+              transform: "unset",
+            }}
+          />
+        </div>
+      ) : events.length ? (
         <div className="event-list">
           {events.map((item, index) =>
             index === events.length - 1 ? (

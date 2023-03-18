@@ -1,8 +1,8 @@
 import React from "react";
 
-const Preloader = () => {
+const Preloader = ({ arg }) => {
   return (
-    <div className="preloader">
+    <div className="preloader" style={arg}>
       <svg viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           className="big-circle"

@@ -1,7 +1,9 @@
 import { useGetEventsQuery } from "@/app/api/eventApi";
+import { setFetching } from "@/app/features/EventSlice";
 import { errorToast } from "@/utils/toastify";
 import React, { useEffect, useState } from "react";
 import { BiMap } from "react-icons/bi";
+import { useDispatch } from "react-redux";
 
 const EventSearchByLocation = ({ loadMap }) => {
   const [address, setAddress] = useState("");
@@ -13,7 +15,7 @@ const EventSearchByLocation = ({ loadMap }) => {
     address: "",
   });
 
-  const { refetch, isLoading } = useGetEventsQuery(
+  const { refetch, isLoading, isFetching } = useGetEventsQuery(
     {
       radius: radius,
       latitude: location.latitude,
@@ -76,9 +78,12 @@ const EventSearchByLocation = ({ loadMap }) => {
     }
   }, []);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (!setShouldFetchData) {
       refetch();
+      dispatch(setFetching(isFetching));
     }
   }, [location, radius, setShouldFetchData]);
 
