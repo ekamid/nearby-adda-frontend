@@ -5,6 +5,23 @@ import React, { useEffect, useState } from "react";
 import { BiMap } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
+import Instruction from "./tooltips/Instruction";
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "#f5f5f9",
+    color: "rgba(0, 0, 0, 0.87)",
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: "1px solid #dadde9",
+  },
+}));
+
 const EventSearchByLocation = ({ loadMap }) => {
   const [address, setAddress] = useState("");
   const [radius, setRadius] = useState(5);
@@ -143,34 +160,43 @@ const EventSearchByLocation = ({ loadMap }) => {
   };
 
   return (
-    <div className="event-search-container ">
-      <input
-        type="text"
-        name="address"
-        onChange={handleAddress}
-        id="search-box"
-        value={address}
-        placeholder="Search your address"
-      />
-      <button onClick={getLocation}>
-        <BiMap size={22} />
-      </button>
-      <select onChange={handleRadius}>
-        <option value={null}>Radius</option>
+    <Instruction
+      title={
+        <React.Fragment>
+          <Typography color="inherit">Type or Select Current Location to see events</Typography>
+        </React.Fragment>
+      }
+      open={address ? false : true}
+    >
+      <div className="event-search-container ">
+        <input
+          type="text"
+          name="address"
+          onChange={handleAddress}
+          id="search-box"
+          value={address}
+          placeholder="Search your address"
+        />
+        <button onClick={getLocation}>
+          <BiMap size={22} />
+        </button>
+        <select onChange={handleRadius}>
+          <option value={null}>Radius</option>
 
-        {[...Array(100).keys()].map((item) =>
-          item > 0 && item % 5 === 0 ? (
-            <option
-              selected={radius == item ? true : false}
-              key={item}
-              value={item}
-            >
-              {item}KM
-            </option>
-          ) : null
-        )}
-      </select>
-    </div>
+          {[...Array(100).keys()].map((item) =>
+            item > 0 && item % 5 === 0 ? (
+              <option
+                selected={radius == item ? true : false}
+                key={item}
+                value={item}
+              >
+                {item}KM
+              </option>
+            ) : null
+          )}
+        </select>
+      </div>
+    </Instruction>
   );
 };
 

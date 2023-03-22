@@ -1,6 +1,8 @@
 import React from "react";
 import { BiMap } from "react-icons/bi";
 
+import { Box } from "@mui/material";
+
 const SingleEvent = ({ data, className }) => {
   const { name, address, imageUrl, description, _id } = data;
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 
-import theme, { roboto } from "../theme/theme";
+import theme, { roboto } from "../theme";
 import createEmotionCache from "../utils/createEmotionCache";
 
 export default function MyDocument({ emotionStyleTags }) {

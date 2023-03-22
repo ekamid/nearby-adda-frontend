@@ -8,6 +8,8 @@ import Preloader from "@/components/Preloader";
 import { setFetching } from "@/app/features/EventSlice";
 import { useDispatch } from "react-redux";
 
+import { Grid } from "@mui/material";
+
 export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -65,24 +67,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="main">
-        <div className="row">
-          <div className="col-4">
-            <EventContainer selectedEvent={selectedEvent} loadMap={loadMap} />
-          </div>
-          <div className="col-8">
-            <MapContainer
-              handleSelectedEvent={handleSelectedEvent}
-              loadMap={loadMap}
-            />
-          </div>
-        </div>
-        {/* <Draggable>
-          <div>
-            <FloatingMenu />
-          </div>
-        </Draggable> */}
-      </div>
+
+      <Grid container>
+        <Grid item xs={12} md={4}>
+          <EventContainer selectedEvent={selectedEvent} loadMap={loadMap} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <MapContainer
+            handleSelectedEvent={handleSelectedEvent}
+            loadMap={loadMap}
+          />
+        </Grid>
+      </Grid>
     </>
   );
 }

@@ -1,30 +1,9 @@
-// import "@/styles/globals.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "react-toastify/dist/ReactToastify.css";
-
-// import { RouteGuard } from "@/components/RouteGuard";
-
-// import { store } from "@/app/store";
-// import { Provider } from "react-redux";
-// import { ToastContainer } from "react-toastify";
-
-// export default function App({ Component, pageProps }) {
-//   return (
-// <Provider store={store}>
-//   <RouteGuard>
-//     <Component {...pageProps} />
-//   </RouteGuard>
-//   <ToastContainer />
-// </Provider>
-//   );
-// }
-
 import * as React from "react";
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider } from "@emotion/react";
-import theme from "../theme/theme";
+import theme from "../theme";
 import createEmotionCache from "../utils/createEmotionCache";
 
 import { RouteGuard } from "@/components/RouteGuard";
