@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+
 import { useSelector } from "react-redux";
 import GMap from "./Map";
 import Preloader from "./Preloader";
