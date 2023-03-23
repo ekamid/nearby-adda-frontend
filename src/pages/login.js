@@ -1,29 +1,44 @@
-import React, { useEffect } from "react";
-import { Container, Form, Button, Toast } from "react-bootstrap";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+
+import { errorToast } from "@/utils/toastify";
 
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { useRouter } from "next/router";
 import { useLoginUserMutation } from "@/app/api/authApi";
-import { errorToast } from "@/utils/toastify";
 
-const loginSchema = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().required(),
-});
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="/">
+        Nearby Adda
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
-const LoginPage = () => {
-  const router = useRouter();
+const SignIn = () => {
   const [loginUser, { isLoading, isError, error, isSuccess }] =
     useLoginUserMutation();
-
-  useEffect(() => {
-    // redirect to home if already logged in
-    if (false) {
-      router.push("/");
-    }
-  }, []);
-
 
   const handleSubmit = async (values) => {
     try {
@@ -36,85 +51,110 @@ const LoginPage = () => {
     }
   };
 
+  const loginSchema = Yup.object().shape({
+    email: Yup.string().email().required(),
+    password: Yup.string().required(),
+  });
+
   return (
-    <Container className="p-3 my-5 d-flex flex-column w-50">
-      <Formik
-        validationSchema={loginSchema}
-        onSubmit={handleSubmit}
-        initialValues={{
-          email: "",
-          password: "",
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
-        {({
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-          touched,
-          isValid,
-          errors,
-        }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Form.Group className="mb-4">
-              <Form.Control
-                placeholder="Email"
-                aria-label="Email"
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <Formik
+          validationSchema={loginSchema}
+          onSubmit={handleSubmit}
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+        >
+          {({
+            handleSubmit,
+            handleChange,
+            handleBlur,
+            values,
+            isValid,
+            touched,
+            errors,
+          }) => (
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
                 name="email"
+                autoFocus
+                autoComplete="email"
                 value={values.email}
                 onChange={handleChange}
-                isValid={touched.email && !errors.email}
+                error={touched.email && errors.email}
+                helperText={errors.email}
               />
-              <Form.Control.Feedback
-                className="text-danger"
-                type={errors.email ? "invalid" : "valid"}
-              >
-                {errors.email}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-4">
-              <Form.Control
-                placeholder="Password"
-                aria-label="Password"
-                type="password"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="password"
                 name="password"
+                label="Password"
+                type="password"
+                autoComplete="password"
                 value={values.password}
                 onChange={handleChange}
-                isValid={touched.password && !errors.password}
+                error={touched.password && errors.password}
+                helperText={errors.password}
               />
-              <Form.Control.Feedback
-                className="text-danger"
-                type={errors.password ? "invalid" : "valid"}
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
               >
-                {errors.password}
-              </Form.Control.Feedback>
-            </Form.Group>
-
-            <div className="d-flex justify-content-between mb-4">
-              <Form.Group className="mb-3">
-                <Form.Check
-                  required
-                  name="rememberMe"
-                  label="Remember Me"
-                  feedbackType="invalid"
-                />
-              </Form.Group>
-            </div>
-
-            <Button type="submit" className="mb-4">
-              Sign in
-            </Button>
-
-            <div className="text-center">
-              <p>
-                Not a member? <a href="#!">Register</a>
-              </p>
-            </div>
-          </Form>
-        )}
-      </Formik>
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          )}
+        </Formik>
+      </Box>
+      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 };
 
-export default LoginPage;
+export default SignIn;
