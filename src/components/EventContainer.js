@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import SingleEvent from "./SingleEvent";
 import EventSearchByLocation from "./EventSearchByLocation";
 import Preloader from "./Preloader";
+import { Box } from "@mui/material";
 
 const EventContainer = ({ selectedEvent, loadMap }) => {
   const { events, fetchingEvents } = useSelector((state) => state.events);
 
   return (
-    <div className="event-container">
+    <Box height="100vh" overflow="hidden">
       <EventSearchByLocation loadMap={loadMap} />
       {fetchingEvents ? (
         <div className="d-flex align-items-center justify-content-center h-100">
@@ -25,32 +26,22 @@ const EventContainer = ({ selectedEvent, loadMap }) => {
         </div>
       ) : events.length ? (
         <div className="event-list">
-          {events.map((item, index) =>
-            index === events.length - 1 ? (
-              <SingleEvent
-                key={index}
-                data={item}
-                className={`last-event ${
-                  "event-" + item.id === selectedEvent ? "selected-event" : ""
-                }`}
-              />
-            ) : (
-              <SingleEvent
-                key={index}
-                data={item}
-                className={`${
-                  "event-" + item.id === selectedEvent ? "selected-event" : ""
-                }`}
-              />
-            )
-          )}
+          {events.map((item, index) => (
+            <SingleEvent
+              key={index}
+              data={item}
+              className={`${
+                "event-" + item._id === selectedEvent ? "danger" : null
+              }`}
+            />
+          ))}
         </div>
       ) : (
         <div className="d-flex align-items-center justify-content-center h-100">
           <h3>Empty</h3>
         </div>
       )}
-    </div>
+    </Box>
   );
 };
 

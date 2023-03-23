@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-export { RouteGuard };
-
 const userService = { userValue: false };
 
 function RouteGuard({ children }) {
@@ -15,6 +13,7 @@ function RouteGuard({ children }) {
 
     // on route change start - hide page content by setting authorized to false
     const hideContent = () => setAuthorized(false);
+
     router.events.on("routeChangeStart", hideContent);
 
     // on route change complete - run auth check
@@ -44,5 +43,9 @@ function RouteGuard({ children }) {
     }
   }
 
+  
+
   return authorized && children;
 }
+
+export { RouteGuard };

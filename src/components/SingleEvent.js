@@ -1,25 +1,57 @@
 import React from "react";
 import { BiMap } from "react-icons/bi";
-
-import { Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
+import Image from "next/image";
 
 const SingleEvent = ({ data, className }) => {
   const { name, address, imageUrl, description, _id } = data;
+  console.log(className);
 
   return (
-    <div className={`single-event-container ${className}`} id={`event-${_id}`}>
-      <img src={`${imageUrl}`} alt={data.name} />
-      <h1>{name}</h1>
-      <h3>
+    <Box
+      bgcolor={className && "secondary"}
+      id={`event-${_id}`}
+      sx={{
+        border: "1px solid #FEF7D8",
+        marginTop: "10px",
+        boxShadow: "0px 16px 32px rgba(111, 86, 67, 0.3)",
+        display: "flex",
+        padding: "20px",
+        flexDirection: "column",
+        gap: "10px",
+        borderRadius: "10px",
+      }}
+    >
+      <Box
+        sx={{
+          position: "relative",
+          height: "200px",
+        }}
+      >
+        <Image fill src={`${imageUrl}`} alt={data.name} />
+      </Box>
+      <Typography variant="h4">{name}</Typography>
+      <Typography variant="h6" fontWeight="bold">
         <BiMap /> {address}
-      </h3>
-      <p>{description}</p>
-      <div className="footer">
-        <button className="join-btn">Join</button>
-        <button className="cancel-btn">Cancel</button>
-        <button className="message-btn">Chat</button>
-      </div>
-    </div>
+      </Typography>
+      <Typography>{description}</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "10px",
+        }}
+      >
+        <Button variant="contained" size="large" color="primary">
+          Join
+        </Button>
+        <Button variant="contained" size="large" color="danger">
+          Cancel
+        </Button>
+        <Button variant="contained" size="large" color="warning">
+          Chat
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

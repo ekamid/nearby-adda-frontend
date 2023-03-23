@@ -9,6 +9,7 @@ import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Instruction from "./tooltips/Instruction";
+import { Box, Button, Grid, MenuItem, TextField, Select } from "@mui/material";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -163,39 +164,84 @@ const EventSearchByLocation = ({ loadMap }) => {
     <Instruction
       title={
         <React.Fragment>
-          <Typography color="inherit">Type or Select Current Location to see events</Typography>
+          <Typography color="inherit">
+            Type or Select Current Location to see events
+          </Typography>
         </React.Fragment>
       }
       open={address ? false : true}
     >
-      <div className="event-search-container ">
-        <input
-          type="text"
-          name="address"
-          onChange={handleAddress}
-          id="search-box"
-          value={address}
-          placeholder="Search your address"
-        />
-        <button onClick={getLocation}>
-          <BiMap size={22} />
-        </button>
-        <select onChange={handleRadius}>
-          <option value={null}>Radius</option>
+      <Box
+        sx={{
+          backgroundColor: "#ECE6C2",
+          padding: "20px 10px",
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item md={6}>
+            <TextField
+              required
+              fullWidth
+              id="address"
+              name="address"
+              type="text"
+              value={address}
+              onChange={handleAddress}
+              placeholder="Search your address"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <Button
+              sx={{
+                height: "100%",
+              }}
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={getLocation}
+            >
+              <BiMap size={22} />
+            </Button>
+          </Grid>
 
-          {[...Array(100).keys()].map((item) =>
-            item > 0 && item % 5 === 0 ? (
-              <option
-                selected={radius == item ? true : false}
-                key={item}
-                value={item}
-              >
-                {item}KM
-              </option>
-            ) : null
-          )}
-        </select>
-      </div>
+          <Grid item md={4}>
+            <Select
+              fullWidth
+              labelId="demo-simple-select-label"
+              value={10}
+              onChange={handleRadius}
+            >
+              {[...Array(100).keys()].map((item) =>
+                item > 0 && item % 5 === 0 ? (
+                  <MenuItem
+                    key={item}
+                    value={item}
+                    selected={radius == item ? true : false}
+                  >
+                    {item}KM
+                  </MenuItem>
+                ) : null
+              )}
+            </Select>
+            {/* 
+            <select onChange={handleRadius}>
+              <option value={null}>Radius</option>
+
+              {[...Array(100).keys()].map((item) =>
+                item > 0 && item % 5 === 0 ? (
+                  <option
+                    selected={radius == item ? true : false}
+                    key={item}
+                    value={item}
+                  >
+                    {item}KM
+                  </option>
+                ) : null
+              )}
+            </select> */}
+          </Grid>
+        </Grid>
+      </Box>
     </Instruction>
   );
 };

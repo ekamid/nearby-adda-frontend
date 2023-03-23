@@ -75,6 +75,12 @@ button {
 
 }
 
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .single-event-container {
   background-color: #ECE6C2;
   border: 1px solid #FEF7D8;
