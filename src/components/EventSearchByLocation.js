@@ -4,7 +4,7 @@ import { errorToast } from "@/utils/toastify";
 import React, { useEffect, useState } from "react";
 import { BiMap } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-
+import { useTheme } from "@mui/material/styles";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
@@ -32,6 +32,8 @@ const EventSearchByLocation = ({ loadMap }) => {
     longitude: "",
     address: "",
   });
+
+  const theme = useTheme();
 
   const { refetch, isLoading, isFetching } = useGetEventsQuery(
     {
@@ -175,10 +177,16 @@ const EventSearchByLocation = ({ loadMap }) => {
         sx={{
           backgroundColor: "#ECE6C2",
           padding: "20px 10px",
+          [theme.breakpoints.down(["lg"])]: {
+            position: "fixed",
+            top: 0,
+            zIndex: 3,
+            width: "100%",
+          },
         }}
       >
         <Grid container spacing={2}>
-          <Grid item md={6}>
+          <Grid item xs={6}>
             <TextField
               required
               fullWidth
@@ -190,7 +198,7 @@ const EventSearchByLocation = ({ loadMap }) => {
               placeholder="Search your address"
             />
           </Grid>
-          <Grid item md={2}>
+          <Grid item xs={2}>
             <Button
               sx={{
                 height: "100%",
@@ -204,7 +212,7 @@ const EventSearchByLocation = ({ loadMap }) => {
             </Button>
           </Grid>
 
-          <Grid item md={4}>
+          <Grid item xs={4}>
             <Select
               fullWidth
               labelId="demo-simple-select-label"
