@@ -23,7 +23,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-const EventSearchByLocation = ({ loadMap }) => {
+const FilterByLocation = ({ loadMap }) => {
   const [address, setAddress] = useState("");
   const [radius, setRadius] = useState(5);
   const [shouldFetchData, setShouldFetchData] = useState(true);
@@ -175,14 +175,8 @@ const EventSearchByLocation = ({ loadMap }) => {
     >
       <Box
         sx={{
-          backgroundColor: "#ECE6C2",
+          backgroundColor: "#fff",
           padding: "20px 10px",
-          [theme.breakpoints.down(["lg"])]: {
-            position: "fixed",
-            top: 0,
-            zIndex: 3,
-            width: "100%",
-          },
         }}
       >
         <Grid container spacing={2}>
@@ -197,19 +191,6 @@ const EventSearchByLocation = ({ loadMap }) => {
               onChange={handleAddress}
               placeholder="Search your address"
             />
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              sx={{
-                height: "100%",
-              }}
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={getLocation}
-            >
-              <BiMap size={22} />
-            </Button>
           </Grid>
 
           <Grid item xs={4}>
@@ -231,22 +212,19 @@ const EventSearchByLocation = ({ loadMap }) => {
                 ) : null
               )}
             </Select>
-            {/* 
-            <select onChange={handleRadius}>
-              <option value={null}>Radius</option>
-
-              {[...Array(100).keys()].map((item) =>
-                item > 0 && item % 5 === 0 ? (
-                  <option
-                    selected={radius == item ? true : false}
-                    key={item}
-                    value={item}
-                  >
-                    {item}KM
-                  </option>
-                ) : null
-              )}
-            </select> */}
+          </Grid>
+          <Grid item xs={2}>
+            <Button
+              sx={{
+                height: "100%",
+              }}
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={getLocation}
+            >
+              <BiMap size={22} />
+            </Button>
           </Grid>
         </Grid>
       </Box>
@@ -254,4 +232,4 @@ const EventSearchByLocation = ({ loadMap }) => {
   );
 };
 
-export default EventSearchByLocation;
+export default FilterByLocation;

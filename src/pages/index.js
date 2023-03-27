@@ -8,10 +8,9 @@ import Preloader from "@/components/Preloader";
 import { setFetching } from "@/app/features/EventSlice";
 import { useDispatch } from "react-redux";
 
-import { AppBar, Box, Drawer, Grid } from "@mui/material";
+import { Box, Drawer, Grid } from "@mui/material";
 import MessageContainer from "@/components/MessageContainer";
-import EventSearchByLocation from "@/components/EventSearchByLocation";
-import Footer from "@/components/Footer";
+import FilterByLocation from "@/components/FilterbyLocation";
 import { useTheme } from "@mui/material/styles";
 import Topbar from "@/components/layout/Topbar";
 
@@ -25,6 +24,7 @@ export default function Home() {
   const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
   const handleSelectedEvent = (id) => {
+    console.log(id);
     setSelectedEvent(id);
   };
 
@@ -96,7 +96,7 @@ export default function Home() {
               },
             }}
           >
-            <EventSearchByLocation loadMap={loadMap} />
+            <FilterByLocation loadMap={loadMap} />
             <EventContainer
               toggleDrawer={toggleDrawer}
               selectedEvent={selectedEvent}

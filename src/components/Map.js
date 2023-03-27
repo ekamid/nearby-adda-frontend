@@ -10,7 +10,7 @@ const Map = ({ handleSelectedEvent, events }) => {
         lat: events.length ? events[0].latitude : 0,
         lng: events.length ? events[0].latitude : 0,
       },
-      17
+      15
     );
     let bounds = new window.google.maps.LatLngBounds();
     events.map((x) => {
@@ -25,18 +25,14 @@ const Map = ({ handleSelectedEvent, events }) => {
 
     if (element) {
       handleSelectedEvent(id);
-      let parent = element.parentNode;
-      let parentRect = parent.getBoundingClientRect();
-      let childRect = element.getBoundingClientRect();
 
-      if (
-        childRect.top < parentRect.top ||
-        childRect.bottom > parentRect.bottom
-      ) {
-        parent.scrollTo({
-          top: element.offsetTop - parent.offsetTop,
-          behavior: "smooth",
-        });
+      const cardRect = element.getBoundingClientRect();
+      const parentRect = element.parentElement.getBoundingClientRect();
+
+      if (cardRect.top <= parentRect.top) {
+        window.scrollTo({ top: cardRect.top + window.pageYOffset });
+      } else {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   };
@@ -66,6 +62,8 @@ const Map = ({ handleSelectedEvent, events }) => {
         // set marker width and height
         scaledSize: new window.google.maps.Size(50, 50),
       },
+      animation: window.google.maps.Animation.DROP,
+      draggable: true, // Make the marker draggable
     });
 
     //clickable info marker
@@ -81,6 +79,9 @@ const Map = ({ handleSelectedEvent, events }) => {
 
       currentInfowWindow = infoWindow;
       scrollTo = marker.id;
+
+      googleMap.setZoom(21);
+      googleMap.panTo(marker.getPosition());
 
       infoWindow.setContent(`<h1>${marker.title}</h1>`);
       infoWindow.open(marker.map, marker);

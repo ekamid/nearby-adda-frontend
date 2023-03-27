@@ -73,7 +73,7 @@ button {
   min-height: 100%;
   height: -moz-fit-content;
   height: fit-content;
-  max-height: calc(100vh - 10.5rem);
+  max-height: calc(100vh - 6rem);
   overflow-y: scroll;
 
 }

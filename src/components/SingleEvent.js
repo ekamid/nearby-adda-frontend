@@ -6,16 +6,15 @@ import Link from "next/link";
 import ForumIcon from "@mui/icons-material/Forum";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
-const SingleEvent = ({ data, className, toggleDrawer }) => {
+const SingleEvent = ({ data, toggleDrawer, selected }) => {
   const { name, address, imageUrl, description, _id } = data;
-  console.log(className);
 
   return (
     <Box
-      bgcolor={className && "secondary"}
+      bgcolor="secondary"
       id={`event-${_id}`}
       sx={{
-        border: "1px solid #FEF7D8",
+        border: selected ? "2px solid red" : "1px solid #FEF7D8",
         marginTop: "10px",
         boxShadow: "0px 16px 32px rgba(111, 86, 67, 0.3)",
         display: "flex",
@@ -91,27 +90,6 @@ const SingleEvent = ({ data, className, toggleDrawer }) => {
       >
         <BiMap /> {address}
       </Typography>
-      {/* <Box
-        sx={{
-          display: "flex",
-          gap: "10px",
-        }}
-      >
-        <Button variant="contained" size="large" color="primary">
-          Join
-        </Button>
-        <Button variant="contained" size="large" color="danger">
-          Cancel
-        </Button>
-        <Button
-          onClick={toggleDrawer}
-          variant="contained"
-          size="large"
-          color="warning"
-        >
-          Chat
-        </Button>
-      </Box> */}
     </Box>
   );
 };

@@ -9,15 +9,22 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
+const background = {
+  default: "#fef6e4",
+  paper: "#f3d2c1",
+};
+
+const text = {};
+
 const colorPalette = {
   primary: {
-    main: "#73BDA8",
+    main: "#fef6e4",
   },
   secondary: {
-    main: "#ECE6C2",
+    main: "#fef6e4",
   },
   warning: {
-    main: "#D2A24C",
+    main: "#f582ae",
   },
   danger: {
     main: "#CC6B49",
@@ -28,23 +35,6 @@ const colorPalette = {
 };
 
 // Create a theme instance.
-const theme = createTheme({
-  palette: colorPalette,
-  typography: {
-    fontFamily: roboto.style.fontFamily,
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        // Name of the slot
-        root: {
-          // Some CSS
-          color: "#fff",
-          fontSize: "1rem",
-        },
-      },
-    },
-  },
-});
+const theme = createTheme({});
 
 export default theme;
