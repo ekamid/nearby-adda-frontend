@@ -3,7 +3,6 @@ import EventContainer from "@/components/EventContainer";
 import MapContainer from "@/components/MapContainer";
 import { useEffect, useState } from "react";
 import { useGetEventsQuery } from "@/app/api/eventApi";
-import { loadGoogleMapScript } from "@/utils/helpers";
 import Preloader from "@/components/Preloader";
 import { setFetching } from "@/app/features/EventSlice";
 import { useDispatch } from "react-redux";
@@ -13,26 +12,23 @@ import MessageContainer from "@/components/MessageContainer";
 import FilterByLocation from "@/components/FilterbyLocation";
 import { useTheme } from "@mui/material/styles";
 import Topbar from "@/components/layout/Topbar";
+import GoogleMap from "@/utils/GoogleMap";
+const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
 export default function Home() {
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const { isLoading, isFetching } = useGetEventsQuery();
   const [chatDrawerOpen, setChatDrawerOpen] = useState(false);
   const dispatch = useDispatch();
   const theme = useTheme();
   // API key of the google map
-  const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
-  const handleSelectedEvent = (id) => {
-    console.log(id);
-    setSelectedEvent(id);
-  };
+  const gMap = new GoogleMap();
 
   const [loadMap, setLoadMap] = useState(false);
 
   useEffect(() => {
     //load google map
-    loadGoogleMapScript(() => {
+    gMap.loadGoogleMapScript(() => {
       setLoadMap(true);
     }, GOOGLE_MAP_API_KEY);
   }, [GOOGLE_MAP_API_KEY]);
@@ -73,15 +69,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box
-        height="100vh"
-        overflow="hidden"
-        sx={{
-          [theme.breakpoints.down("lg")]: {
-            overflow: "scroll",
-          },
-        }}
-      >
+      <Box height="100vh" overflow="hidden">
         <Topbar />
         <Grid container height="100%">
           <Grid
@@ -97,12 +85,7 @@ export default function Home() {
             }}
           >
             <FilterByLocation loadMap={loadMap} />
-            <EventContainer
-              toggleDrawer={toggleDrawer}
-              selectedEvent={selectedEvent}
-            />
-
-            {/* <Footer /> */}
+            <EventContainer toggleDrawer={toggleDrawer} />
           </Grid>
           <Grid
             item
@@ -115,10 +98,7 @@ export default function Home() {
               },
             }}
           >
-            <MapContainer
-              handleSelectedEvent={handleSelectedEvent}
-              loadMap={loadMap}
-            />
+            <MapContainer loadMap={loadMap} />
             <Drawer anchor="right" open={chatDrawerOpen} onClose={toggleDrawer}>
               <MessageContainer />
             </Drawer>

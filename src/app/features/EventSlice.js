@@ -6,6 +6,7 @@ const initialState = {
   events: [],
   pages: 0,
   fetchingEvents: false,
+  selectedEvent: null,
 };
 
 export const eventSlice = createSlice({
@@ -20,9 +21,13 @@ export const eventSlice = createSlice({
     setFetching: (state, action) => {
       state.fetchingEvents = action.payload;
     },
+
+    setSelectedEvent: (state, action) => {
+      state.selectedEvent = action.payload;
+    },
   },
 });
 
 export default eventSlice.reducer;
 
-export const { setEvents, setFetching } = eventSlice.actions;
+export const { setEvents, setFetching, setSelectedEvent } = eventSlice.actions;

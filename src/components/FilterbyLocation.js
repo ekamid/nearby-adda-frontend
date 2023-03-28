@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Instruction from "./tooltips/Instruction";
 import { Box, Button, Grid, MenuItem, TextField, Select } from "@mui/material";
+import { scrollToTop } from "@/utils/helpers";
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -33,8 +34,6 @@ const FilterByLocation = ({ loadMap }) => {
     address: "",
   });
 
-  const theme = useTheme();
-
   const { refetch, isLoading, isFetching } = useGetEventsQuery(
     {
       radius: radius,
@@ -50,6 +49,8 @@ const FilterByLocation = ({ loadMap }) => {
     const autocomplete = new window.google.maps.places.Autocomplete(
       document.getElementById("search-box")
     );
+
+    console.log(autocomplete);
 
     window.google.maps.event.addListener(
       autocomplete,
@@ -162,6 +163,11 @@ const FilterByLocation = ({ loadMap }) => {
     }
   };
 
+  const hanldeOnFocus = (e) => {
+    const element = document.getElementById(e.target.id);
+    scrollToTop(element);
+  };
+
   return (
     <Instruction
       title={
@@ -174,6 +180,7 @@ const FilterByLocation = ({ loadMap }) => {
       open={address ? false : true}
     >
       <Box
+        id="filterMenu"
         sx={{
           backgroundColor: "#fff",
           padding: "20px 10px",
@@ -184,10 +191,12 @@ const FilterByLocation = ({ loadMap }) => {
             <TextField
               required
               fullWidth
-              id="address"
+              id="search-box"
               name="address"
               type="text"
               value={address}
+              onFocus={hanldeOnFocus}
+              onBlur={hanldeOnFocus}
               onChange={handleAddress}
               placeholder="Search your address"
             />

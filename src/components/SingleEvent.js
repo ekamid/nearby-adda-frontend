@@ -5,16 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 import ForumIcon from "@mui/icons-material/Forum";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { useSelector } from "react-redux";
 
-const SingleEvent = ({ data, toggleDrawer, selected }) => {
-  const { name, address, imageUrl, description, _id } = data;
+const SingleEvent = ({ data, toggleDrawer }) => {
+  const { name, address, imageUrl, _id } = data;
+  const { selectedEvent } = useSelector((state) => state.events);
 
   return (
     <Box
       bgcolor="secondary"
-      id={`event-${_id}`}
+      id={_id}
       sx={{
-        border: selected ? "2px solid red" : "1px solid #FEF7D8",
+        border: selectedEvent === _id ? "2px solid red" : "1px solid #FEF7D8",
         marginTop: "10px",
         boxShadow: "0px 16px 32px rgba(111, 86, 67, 0.3)",
         display: "flex",

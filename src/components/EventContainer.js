@@ -33,7 +33,7 @@ const EventContainer = ({ selectedEvent, toggleDrawer }) => {
                   toggleDrawer={toggleDrawer}
                   key={index}
                   data={item}
-                  selected={"event-" + item._id === selectedEvent}
+                  selected={item._id === selectedEvent}
                 />
               </Grid>
             ))}

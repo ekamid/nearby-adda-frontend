@@ -30,17 +30,15 @@ export const getPathQueryParams = ({
   return pathQueryParams;
 };
 
-// load google map script
-export const loadGoogleMapScript = (callback, apiKey) => {
-  if (
-    typeof window.google === "object" &&
-    typeof window.google.maps === "object"
-  ) {
-    callback();
-  } else {
-    const googleMapScript = document.createElement("script");
-    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
-    window.document.body.appendChild(googleMapScript);
-    googleMapScript.addEventListener("load", callback);
+export const scrollToTop = (element) => {
+  if (element) {
+    const cardRect = element.getBoundingClientRect();
+    const parentRect = element.parentElement.getBoundingClientRect();
+
+    if (cardRect.top <= parentRect.top) {
+      window.scrollTo({ top: cardRect.top + window.pageYOffset });
+    } else {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 };
