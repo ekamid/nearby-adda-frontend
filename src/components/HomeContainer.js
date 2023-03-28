@@ -26,7 +26,7 @@ const HomeContainer = ({ loadMap }) => {
           order={{ xs: 2, lg: 1 }}
           sx={{
             [theme.breakpoints.down("lg")]: {
-              height: "50%",
+              height: "70%",
             },
           }}
         >
@@ -40,7 +40,7 @@ const HomeContainer = ({ loadMap }) => {
           order={{ xs: 1, lg: 2 }}
           sx={{
             [theme.breakpoints.down("lg")]: {
-              height: "50%",
+              height: "30%",
             },
           }}
         >
