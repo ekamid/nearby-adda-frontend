@@ -17,6 +17,7 @@ const EventContainer = ({ selectedEvent, toggleDrawer }) => {
             container
             sx={{
               padding: "10px",
+              // marginBottom: "10rem",
             }}
           >
             {events.map((item, index) => (

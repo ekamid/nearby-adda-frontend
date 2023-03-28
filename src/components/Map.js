@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import GoogleMap from "@/utils/GoogleMap";
 import { scrollToTop } from "@/utils/helpers";
 import { useDispatch } from "react-redux";
@@ -6,15 +6,14 @@ import { setSelectedEvent } from "@/app/features/EventSlice";
 
 const Map = ({ events }) => {
   const googleMapRef = useRef(null);
-  const gMap = new GoogleMap(googleMapRef); //creating intence for googleMap
+  const gMap = useMemo(() => new GoogleMap(googleMapRef), []);
   let googleMap = gMap.map;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    googleMap = gMap.initGoogleMap(
+    googleMap = gMap.initMap(
       {
         lat: events.length ? events[0].latitude : 0,
         lng: events.length ? events[0].latitude : 0,

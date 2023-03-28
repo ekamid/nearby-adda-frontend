@@ -4,10 +4,11 @@ class GoogleMap {
   marker = null;
 
   constructor(ref = null) {
+    console.log("changeee");
     this.ref = ref;
   }
 
-  loadGoogleMapScript = (callback, apiKey) => {
+  loadMapScript = (callback, apiKey) => {
     const src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
     if (
       typeof window.google === "object" &&
@@ -22,7 +23,7 @@ class GoogleMap {
     }
   };
 
-  initGoogleMap = (position, zoomLevel) => {
+  initMap = (position, zoomLevel) => {
     this.map = new window.google.maps.Map(this.ref.current, {
       center: position,
       zoom: zoomLevel,

@@ -1,5 +1,4 @@
 import * as React from "react";
-import BottomNavigation from "@mui/material/BottomNavigation";
 import { Typography } from "@mui/material";
 import { GitHub } from "@mui/icons-material";
 import Paper from "@mui/material/Paper";

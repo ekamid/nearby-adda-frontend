@@ -30,15 +30,40 @@ export const getPathQueryParams = ({
   return pathQueryParams;
 };
 
-export const scrollToTop = (element) => {
-  if (element) {
-    const cardRect = element.getBoundingClientRect();
-    const parentRect = element.parentElement.getBoundingClientRect();
-
-    if (cardRect.top <= parentRect.top) {
-      window.scrollTo({ top: cardRect.top + window.pageYOffset });
-    } else {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+const findScrollableParent = (element) => {
+  let parent = element.parentNode;
+  while (parent !== null) {
+    if (parent.scrollHeight > parent.clientHeight) {
+      return parent;
     }
+    parent = parent.parentNode;
+  }
+  return document.documentElement;
+};
+
+export const scrollToTop = (element) => {
+  const CARD_SCROLL_PADDING = 40;
+
+  const cardRect = element.getBoundingClientRect();
+  const parent = findScrollableParent(element);
+
+  if (cardRect.top <= parent.offsetTop) {
+    parent.scrollTo({
+      top:
+        parent.scrollTop +
+        cardRect.top -
+        parent.offsetTop -
+        CARD_SCROLL_PADDING,
+      behavior: "smooth",
+    });
+  } else if (cardRect.bottom >= parent.offsetTop + parent.clientHeight) {
+    parent.scrollTo({
+      top:
+        parent.scrollTop +
+        cardRect.bottom -
+        (parent.offsetTop + parent.clientHeight) +
+        CARD_SCROLL_PADDING,
+      behavior: "smooth",
+    });
   }
 };

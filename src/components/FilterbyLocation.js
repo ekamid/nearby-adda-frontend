@@ -4,25 +4,11 @@ import { errorToast } from "@/utils/toastify";
 import React, { useEffect, useState } from "react";
 import { BiMap } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { useTheme } from "@mui/material/styles";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
 import Instruction from "./tooltips/Instruction";
 import { Box, Button, Grid, MenuItem, TextField, Select } from "@mui/material";
 import { scrollToTop } from "@/utils/helpers";
 
-const HtmlTooltip = styled(({ className, ...props }) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: "#f5f5f9",
-    color: "rgba(0, 0, 0, 0.87)",
-    maxWidth: 220,
-    fontSize: theme.typography.pxToRem(12),
-    border: "1px solid #dadde9",
-  },
-}));
 
 const FilterByLocation = ({ loadMap }) => {
   const [address, setAddress] = useState("");
@@ -49,8 +35,6 @@ const FilterByLocation = ({ loadMap }) => {
     const autocomplete = new window.google.maps.places.Autocomplete(
       document.getElementById("search-box")
     );
-
-    console.log(autocomplete);
 
     window.google.maps.event.addListener(
       autocomplete,
